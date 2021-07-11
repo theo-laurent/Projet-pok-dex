@@ -59,8 +59,12 @@ function fetchPokemon(pokemon) {
           allPokemon.push(objPokemon);
 
           if (allPokemon.length === 151) {
-            console.log(allPokemon);
-            createCard(allPokemon);
+            allPokemonTrie = allPokemon
+              .sort(function (a, b) {
+                return a.id - b.id;
+              })
+              .slice(0, 21);
+            createCard(allPokemonTrie);
           }
         })
         .catch(function (error) {
@@ -95,3 +99,13 @@ function createCard(array) {
     listPokemon.appendChild(carte);
   }
 }
+
+window.addEventListener("scroll", function () {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  console.log(scrollTop, scrollHeight, clientHeight);
+});
+
+document.getElementById("pokemonSearch")
+        .addEventListener("input", function(){
+
+        });
