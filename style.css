@@ -18,14 +18,15 @@ h1 {
   text-align: center;
 }
 
-.input {
-  width: 500px;
+form{
+  width: 50%;
+  min-width: 300px;
   margin: auto;
 }
-
 input {
-  height: 30px;
   width: 100%;
+  height: 30px;
+  
 }
 
 .container {
@@ -43,7 +44,7 @@ ul {
   flex-wrap: wrap;
 }
 
-li {
+.listPokemon li {
   width: 250px;
   padding: 10px;
   margin: 5px;

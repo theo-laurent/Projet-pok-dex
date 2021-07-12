@@ -1,5 +1,7 @@
 const allPokemon = [];
-const listPokemon = document.getElementById("listPokemon");
+const listPokemon = document.querySelector(".listPokemon");
+const searchInput = document.querySelector(".pokemonSearch input");
+let index = 21;
 
 const typeCouleur = {
   grass: "#78c850",
@@ -80,7 +82,7 @@ function createCard(array) {
   for (let i = 0; i < array.length; i++) {
     const carte = document.createElement("li");
 
-    const couleur = typeCouleur[array[i].type];
+    let couleur = typeCouleur[array[i].type];
     carte.style.background = couleur;
 
     const nomCarte = document.createElement("h4");
@@ -102,10 +104,45 @@ function createCard(array) {
 
 window.addEventListener("scroll", function () {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  console.log(scrollTop, scrollHeight, clientHeight);
+  if (clientHeight + scrollTop >= scrollHeight - 20) {
+    addPoke(6);
+  }
 });
 
-document.getElementById("pokemonSearch")
-        .addEventListener("input", function(){
+function addPoke(nombre) {
+  if (index > 151) {
+    return;
+  } else {
+    const arrayToAdd = allPokemon.slice(index, index + nombre);
+    createCard(arrayToAdd);
+    index += nombre;
+  }
+}
 
-        });
+searchInput.addEventListener("keyup", recherche);
+
+function recherche(){
+
+  if(index < 151) {
+      addPoke(130);
+  }
+
+  let filter, allLi, titleValue, allTitles;
+  filter = searchInput.value.toUpperCase();
+  allLi = document.querySelectorAll('li');
+  allTitles = document.querySelectorAll('li > h4');
+  
+  
+  for(i = 0; i < allLi.length; i++) {
+
+      titleValue = allTitles[i].innerText;
+
+      if(titleValue.toUpperCase().indexOf(filter) > -1) {
+          allLi[i].style.display = "flex";
+      } else {
+          allLi[i].style.display = "none";
+      }
+
+  }
+
+}
